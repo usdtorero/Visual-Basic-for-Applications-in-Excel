@@ -1,103 +1,41 @@
 Sub FormatWorksheet()
-    Dim rng As Range
-    Dim InputRng As Range
+Dim rng As Range
+Dim InputRng As Range
+xTitleId = "accessity"
 
-    xTitleId = "ruizjesusj"
-    
-    Set InputRng = Application.Selection
-    Set InputRng = Application.InputBox("Range :", xTitleId, InputRng.Address, Type:=8)
-    Application.ScreenUpdating = False
-    For i = InputRng.Columns.Count To 1 Step -1
-        Set rng = InputRng.Cells(1, i).EntireColumn
-        If Application.WorksheetFunction.CountA(rng) = 0 Then
-            rng.Delete
-        End If
-    Next
-    
-    
-    Application.ScreenUpdating = False
-    With ThisWorkbook.ActiveSheet.Unprotect
-    End With
-    
-    'Delete blank rows
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1000").SpecialCells(xlCellTypeBlanks).Delete Shift:=xlUp
-    End With
-    
-    
-    
-    'Middle align the worksheet
-    With ThisWorkbook.ActiveSheet
-        HorizontalAlignment = xlCenter
-    End With
-    
-    'Disable wrap text
-    With ThisWorkbook.ActiveSheet
-        .Cells.WrapText = False
-    End With
-    
-    'Change font to Calibri Light size 12
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1000").Font.Name = "Calibri Light"
-        .Range("A1:Z1000").Font.Size = 12
-    End With
-    
-    'Hide gridlines
-    With ThisWorkbook.ActiveSheet
-        DisplayGridlines = True
-    End With
-    
-    'Change color of first row to #DDEBF7
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1").Interior.Color = RGB(221, 235, 247)
-    End With
-    
-    'Bold the text in the first row
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1").Font.Bold = True
-    End With
-    
-    'Center align the first row
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1").HorizontalAlignment = xlCenter
-    End With
-    
-    'Freeze the top row
-    With ThisWorkbook.ActiveSheet
-        .Range("A2:Z1000").Select
-        .Range("A2:Z1000").Activate
-        ActiveWindow.FreezePanes = True
-    End With
-    
-    'Delete blank columns
-    'With ThisWorkbook.ActiveSheet
-    '    .Range("A1:Z1000").SpecialCells(xlCellTypeBlanks).EntireColumn.Delete
-    '  End With
-    
-    'Autofit all columns and rows
-    With ThisWorkbook.ActiveSheet
-        .Cells.EntireColumn.AutoFit
-        .Cells.EntireRow.AutoFit
-    End With
-    
-    'Filter using the first row
-    With ThisWorkbook.ActiveSheet
-        .Range("A1:Z1").AutoFilter
-    End With
-    
-    With ActiveSheet
-        .EnableSelection = xlNoSelection
-        .Protect
-    End With
-    
-    ActiveWindow.Zoom = 85
-    Application.WindowState = xlMaximized
-    ActiveWindow.DisplayGridlines = False
-    
-    Application.ScreenUpdating = True
-    
-    'Simple message box that says "Formatting complete."
-    MsgBox "Formatting complete."
-    
+Set InputRng = Application.Selection
+Set InputRng = Application.InputBox("Range :", xTitleId, InputRng.Address, Type:=8)
+Application.ScreenUpdating = False
+For i = InputRng.Columns.Count To 1 Step -1
+    Set rng = InputRng.Cells(1, i).EntireColumn
+    If Application.WorksheetFunction.CountA(rng) = 0 Then
+        rng.Delete
+    End If
+Next
+
+With ThisWorkbook.ActiveSheet
+    .Unprotect
+    .Range("A1:Z1000").SpecialCells(xlCellTypeBlanks).Delete Shift:=xlUp
+    .HorizontalAlignment = xlCenter
+    .Cells.WrapText = False
+    .Range("A1:Z1000").Font.Name = "Calibri Light"
+    .Range("A1:Z1000").Font.Size = 12
+    .DisplayGridlines = False
+    .Range("A1:Z1").Interior.Color = RGB(221, 235, 247)
+    .Range("A1:Z1").Font.Bold = True
+    .Range("A1:Z1").HorizontalAlignment = xlCenter
+    .Range("A2:Z1000").Activate
+    .ActiveWindow.FreezePanes = True
+    .Cells.EntireColumn.AutoFit
+    .Cells.EntireRow.AutoFit
+    .Range("A1:Z1").AutoFilter
+    .EnableSelection = xlNoSelection
+End With
+
+ActiveWindow.Zoom = 85
+Application.WindowState = xlMaximized
+ActiveWindow.DisplayGridlines = False
+
+Application.ScreenUpdating = True
+MsgBox "Formatting complete."
 End Sub
-
